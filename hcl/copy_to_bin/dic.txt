@@ -1,0 +1,2 @@
+xyzzy,D:\Program Files (x86)\xyzzy\xyzzy.exe
+cmd,C:\Windows\System32\cmd.exe
