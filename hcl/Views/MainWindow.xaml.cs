@@ -69,12 +69,14 @@ namespace hcl.Views
             }
         }
 
+        private string _currentEnvSet = "";
         private void ExecutePresetCommand(Models.PresetCommand.Type type, string[] args)
         {
             switch (type)
             {
                 case Models.PresetCommand.Type.SwitchEnvSet:
-                    new Models.EnvSet(args[0]);
+                    new Models.EnvSet(args[0], _currentEnvSet);
+                    _currentEnvSet = args[0];
                     break;
 
                 case Models.PresetCommand.Type.EditConfig:

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,25 @@ namespace hcl.Models
 {
     class EnvSet
     {
-        public EnvSet(string name)
+        public EnvSet(string name, string currentSet = "")
         {
-            var filename = Path.Combine("envset", name);
+            var filename = "";
+
+            if (name == "current")
+            {
+                filename = Path.Combine("envset", currentSet);
+                if (File.Exists(filename))
+                {
+                    var tmpfile = filename + ".txt";
+                    File.Copy(filename, tmpfile);
+                    var process = new Process();
+                    process.StartInfo.FileName = tmpfile;
+                    process.Start();
+                }
+                return;
+            }
+
+            filename = Path.Combine("envset", name);
             if (!File.Exists(filename)) throw new ArgumentException("invalid envset file: " + name);
 
             using (var reader = new StreamReader(filename))
